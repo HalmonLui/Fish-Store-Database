@@ -1,0 +1,200 @@
+Drop table if exists Store;
+Drop table if exists Inventory;
+Drop table if exists Loyalty;
+Drop table if exists Medicine;
+Drop table if exists Employee;
+Drop table if exists Customer;
+Drop table if exists Fish;
+Drop table if exists Tank;
+Drop table if exists Food;
+Drop table if exists Disease;
+Drop table if exists Decoration;
+Drop table if exists Supply;
+
+CREATE TABLE Employee(
+EmployeeID        VARCHAR(20),
+Name            VARCHAR(20),
+DOB                VARCHAR(20),
+HourlyWage        VARCHAR(20),
+PhoneNumber            VARCHAR(20),
+WorkingShift    VARCHAR(20),
+CONSTRAINT Employee_PK PRIMARY KEY (EmployeeID)
+);
+
+CREATE TABLE Customer(
+CustomerID        VARCHAR(20),
+Name            VARCHAR(20),
+DOB                VARCHAR(20),
+PhoneNumber            VARCHAR(20),
+City            VARCHAR(20),
+CONSTRAINT Customer_PK PRIMARY KEY (CustomerID)
+);
+
+CREATE TABLE Loyalty(
+CardID            VARCHAR(20),
+MoneySpent        VARCHAR(20),
+PointsEarned        NUMERIC(20),
+CustomerID        VARCHAR(20),
+CONSTRAINT Loyalty_PK PRIMARY KEY (CardID),
+CONSTRAINT Loyalty_FK FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+
+CREATE TABLE Fish(
+FishID                VARCHAR(20),
+FishType            VARCHAR(20),
+Lifespan            VARCHAR(20),
+Hostility            VARCHAR(20),
+Cost                VARCHAR(20),
+Quantity            VARCHAR(20),
+CONSTRAINT Fish_PK PRIMARY KEY (FishID)
+);
+
+CREATE TABLE Tank(
+TankID                VARCHAR(20),
+Gallon                VARCHAR(20),
+EmptyWeight            VARCHAR(20),
+FilledWeight        VARCHAR(20),
+Length                VARCHAR(20),
+Width                VARCHAR(20),
+Height                VARCHAR(20),
+Cost                VARCHAR(20),
+Quantity            VARCHAR(20),
+CONSTRAINT Tank_PK PRIMARY KEY (TankID)
+);
+
+CREATE TABLE Food(
+FoodID                VARCHAR(20),
+TypeOfFood            VARCHAR(20),
+Cost                VARCHAR(20),
+Quantity            VARCHAR(20),
+CONSTRAINT Food_PK PRIMARY KEY (FoodID)
+);
+
+CREATE TABLE Disease(
+DiseaseID        VARCHAR(20),
+Disease            VARCHAR(20),
+MainSymptom        VARCHAR(20),
+CONSTRAINT Disease_PK PRIMARY KEY (DiseaseID)
+);
+
+CREATE TABLE Medicine(
+MedicineID    VARCHAR(20),
+MedicineType    VARCHAR(20),
+Cost        VARCHAR(20),
+Quantity            VARCHAR(20),
+CONSTRAINT Medicine_PK PRIMARY KEY (MedicineID)
+);
+
+CREATE TABLE Decoration(
+DecorationID        VARCHAR(20),
+DecorationType        VARCHAR(20),
+Cost                VARCHAR(20),
+Quantity            VARCHAR(20),
+CONSTRAINT Decoration_PK PRIMARY KEY (DecorationID)
+);
+
+CREATE TABLE Supply(
+SupplyID        VARCHAR(20),
+SupplyType        VARCHAR(20),
+Cost            VARCHAR(20),
+Quantity        VARCHAR(20),
+CONSTRAINT Supply_PK PRIMARY KEY (SupplyID)
+);
+
+CREATE TABLE Inventory(
+InventoryID        VARCHAR(20),
+FishID            VARCHAR(20),
+TankID            VARCHAR(20),
+FoodID            VARCHAR(20),
+MedicineID        VARCHAR(20),
+DecorationID    VARCHAR(20),
+SupplyID        VARCHAR(20),
+CONSTRAINT Inventory_PK PRIMARY KEY (InventoryID),
+CONSTRAINT Inventory_FK1 FOREIGN KEY (FishID) REFERENCES Fish(FishID),
+CONSTRAINT Inventory_FK2 FOREIGN KEY (TankID) REFERENCES Tank(TankID),
+CONSTRAINT Inventory_FK3 FOREIGN KEY (FoodID) REFERENCES Food(FoodID),
+CONSTRAINT Inventory_FK4 FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
+CONSTRAINT Inventory_FK5 FOREIGN KEY (DecorationID) REFERENCES Decoration(DecorationID),
+CONSTRAINT Inventory_FK6 FOREIGN KEY (SupplyID) REFERENCES Supply(SupplyID)
+);
+
+CREATE TABLE Store(
+StoreID        VARCHAR(20),
+EmployeeID    VARCHAR(20),
+InventoryID     VARCHAR(20),
+CustomerID    VARCHAR(20),
+CONSTRAINT Store_PK PRIMARY KEY (StoreID),
+CONSTRAINT Store_FK1 FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID),
+CONSTRAINT Store_FK2 FOREIGN KEY (InventoryID) REFERENCES Inventory(InventoryID),
+CONSTRAINT Store_FK3 FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+Insert into Employee values('10', 'Ryan Parekh', '1/28/1997', '$20', '(617)-803-8808', 'Morning');
+Insert into Employee values('11', 'Halmon Lui', '1/1/1997', '$19', '(617)-791-2932', 'Morning');
+Insert into Employee values('12', 'Hong-Sheng Wu', '7/23/1980', '$40', '(617)-579-0130', 'Afternoon');
+Insert into Employee values('13', 'Jones Yu', '4/25/1985', '$40', '(617)-434-2341', 'Night');
+
+Insert into Customer values('20', 'Steven Stone', '5/9/1989', '(587)-423-8493', 'Quincy');
+Insert into Customer values('21', 'Mike Yeung', '7/12/1991', '(617)-215-4456', 'Braintree');
+Insert into Customer values('22', 'Kevin Smith', '1/2/1994', '(432)-214-5646', 'Quincy');
+Insert into Customer values('23', 'Benjamin Solveiga', '4/25/1976', '(781)-995-4958', 'Weymouth');
+Insert into Customer values('24', 'Carsten Newt', '12/25/1981', '(456)-665-7456', 'Lexington');
+Insert into Customer values('25', 'Quintin Stail', '6/23/1961', '(732)-849-8252', 'Newton');
+Insert into Customer values('26', 'Justine Milton', '5/4/1928', '(847)-101-1923', 'Newton');
+Insert into Customer values('27', 'Nathan Tihana', '12/1/1979', '(483)-328-8445', 'Braintree');
+Insert into Customer values('28', 'Agnus Scarn', '2/24/1990', '(912)-777-3952', 'Quincy');
+Insert into Customer values('29', 'Will Tang', '3/12/1999', '(617)-656-7732', 'Weymouth');
+
+Insert into Loyalty values('30', '$790.12', '790', '20');
+Insert into Loyalty values('31', '$12.81', '12', '21');
+Insert into Loyalty values('32', '$302.45', '302', '22');
+Insert into Loyalty values('33', '$1152.11', '1152', '23');
+Insert into Loyalty values('34', '$1.23', '1', '24');
+Insert into Loyalty values('35', '$23.98', '23', '25');
+Insert into Loyalty values('36', '$4435.55', '4435', '26');
+Insert into Loyalty values('37', '$810.21', '810', '27');
+Insert into Loyalty values('38', '$105.10', '105', '28');
+Insert into Loyalty values('39', '$289.76', '289', '29');
+
+Insert into Tank values('40', '3', '5', '30', '12', '8', '10', '$50', '5');
+Insert into Tank values('41', '5', '9', '75', '16', '8', '14', '$105', '3');
+Insert into Tank values('42', '10', '16', '140', '20', '16', '18', '$50', '2');
+Insert into Tank values('43', '15', '25', '250', '22', '18', '18', '$50', '1');
+
+Insert into Food values('50', 'Brine Shrimp', '$12', '12');
+Insert into Food values('51', 'Bloodworms', '$9', '15');
+Insert into Food values('52', 'Lettuce', '$4', '20');
+
+Insert into Fish values('60', 'Guppy', '10-20 weeks', 'Not hostile', '$4', '10');
+Insert into Fish values('61', 'Betta Fish', '3-5 years', 'Very hostile', '$6', '12');
+Insert into Fish values('62', 'Neon Tetra', '10 years', 'Not hostile', '$20', '7');
+Insert into Fish values('63', 'Discus', '15 years', 'Very hostile', '$25', '2');
+Insert into Fish values('64', 'Clown Loach', '20 years', 'Not hostile', '$13', '9');
+Insert into Fish values('65', 'Goldfish', '10 years', 'Not hostile', '$1', '34');
+
+Insert into Disease values('70', 'Fish Ick', 'White spots');
+Insert into Disease values('71', 'Ragged Tail Fin', 'Frayed fins');
+Insert into Disease values('72', 'Fungus', 'Gray/white spots');
+
+Insert into Supply values('80', 'Lighting System', '$70', '5');
+Insert into Supply values('81', 'Power Filters', '$40', '7');
+Insert into Supply values('82', 'Water Pumps', '$90', '3');
+
+Insert into Decoration values('90', 'Rocks', '$11', '12');
+Insert into Decoration values('91', 'Sticks', '$6', '11');
+Insert into Decoration values('92', 'Fake Seaweed', '$8', '14');
+
+Insert into Medicine values('100', 'Ick B-Gone', '$30', '45');
+Insert into Medicine values('101', 'Tail Fin Fixer', '$40', '22');
+Insert into Medicine values('102', 'Fungus Gone-gus', '$35', '32');
+
+Insert into Inventory values('110', '60', '40', '50', '100', '90', '80');
+Insert into Inventory values('111', '61', '41', '51', '101', '91', '81');
+Insert into Inventory values('112', '62', '42', '52', '102', '92', '82');
+
+Insert into Store values('120', '10', '110', '20');
+Insert into Store values('121', '11', '111', '21');
+Insert into Store values('122', '12', '112', '22');
+
+

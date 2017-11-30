@@ -1,0 +1,73 @@
+--Simple Queries(5)
+--1. “Please show me a list of the employees”
+SELECT Name 
+FROM Employee;
+
+
+--2. “What diseases can fish get at the store?”
+SELECT Disease
+FROM Disease
+ORDER BY MainSymptom;
+
+--3. “Show me each quantity of each decoration organized by ascending decoration name”
+SELECT DecorationType, Quantity 
+FROM Decoration
+ORDER BY DecorationType;
+
+--4. “Show me the name, city, and phone number of customers with phone numbers that begin with 617”
+SELECT Name, City, PhoneNumber
+FROM Customer
+WHERE PhoneNumber LIKE ‘617%’;
+
+--5. “Show me the employee names and hourly wages who work the night shift and order descendingly by employee ID”
+
+SELECT Name, HourlyWage
+FROM Employee
+WHERE WorkingShift LIKE ‘Night’
+ORDER BY EmployeeID DESC;
+
+--Intermediate Queries(3)
+
+--1. “List all customers from Quincy descending by their first name”
+SELECT Name
+FROM Customer
+WHERE City LIKE ‘Quincy’
+ORDER BY Name DESC;
+
+--2. “List all points customers have that are over 30 and ID ascending”
+SELECT PointsEarned
+FROM Loyalty
+WHERE PointsEarned > 30
+ORDER BY CustomerID;
+
+--3. “Show me all the fish types that are hostile and more than 10 in quantity”
+SELECT FishType
+FROM Fish
+WHERE Hostility LIKE ‘Very hostile’ AND Quantity>10;
+
+--Complex Queries(3)
+
+--1. “Find the number of fish in each hostility type”
+SELECT FishType, COUNT(*)
+FROM Fish
+GROUP BY FishType
+
+
+--2. “Find the customer names who have over 20 points”
+SELECT Name 
+FROM Customer c, Loyalty l
+WHERE c.CustomerID = l.CustomerID AND PointsEarned > 20;
+
+--3.  “Select the name and city of customers who’ve spent over 30 dollars and order descending by customer ID”
+
+SELECT Name, City
+FROM Customer c, Loyalty l
+WHERE c.CustomerID = l.CustomerID AND MoneySpent > 30
+ORDER BY CustomerID DESC;
+
+--4. "Select the FishID, FishType and Cost of decorations that are under $10 and order it by descending FishID"
+SELECT f.FishID, f.FishType, d.Cost
+FROM Inventory i, Fish f, Decoration d
+WHERE f.FishID = i.FishID AND d.DecorationID = i.DecorationID 
+AND d.Cost<10
+ORDER BY FishID DESC;
